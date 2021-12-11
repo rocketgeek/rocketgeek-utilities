@@ -1,4 +1,34 @@
 <?php
+/**
+ * This file is part of the RocketGeek Utility Functions library.
+ *
+ * This library is open source and Apache-2.0 licensed. I hope you find it 
+ * useful for your project(s). Attribution is appreciated ;-)
+ *
+ * @package    RocketGeek_Utilities
+ * @subpackage RocketGeek_Utilities_Dates
+ * @version    1.0.0
+ *
+ * @link       https://github.com/rocketgeek/rocketgeek-utilities/
+ * @author     Chad Butler <https://butlerblog.com>
+ * @author     RocketGeek <https://rocketgeek.com>
+ * @copyright  Copyright (c) 2021 Chad Butler
+ * @license    Apache-2.0
+ *
+ * Copyright [2021] Chad Butler, RocketGeek
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 if ( ! function_exists( 'rktgk_format_date' ) ):
 /**
@@ -54,7 +84,8 @@ function rktgk_date_format_map() {
 		'EUROPEAN'   => 'j F Y',
 		'AMERICAN'   => 'F j, Y',
 		'MM/DD/YYYY' => 'm/d/Y',
-		'DD/MM/YYYY' => 'd/m/Y',
+		'DD-MM-YYYY' => 'd-m-Y',
+		'MYSQL'      => 'Y-m-d H:i:s',		
 	);
 }
 endif;
@@ -65,14 +96,16 @@ if ( ! function_exists( 'rktgk_date_format' ) ):
  *
  * If no format is matched, it returns the original format.
  *
+ * @see https://www.php.net/manual/en/datetime.format.php#refsect1-datetime.format-parameters
+ *
  * @since 1.0.0
  *
  * @param  string  $format
  * @return string  
  */
 function rktgk_date_format( $format ) {
-	$format = strtoupper( $format );
 	$convert = rktgk_date_format_map();
-	return ( ! isset( $convert[ $format ] ) ) ? $format : $convert[ $format ];
+	$format_upper = strtoupper( $format );
+	return ( isset( $convert[ $format_upper ] ) ) ? $convert[ $format ] : $format;
 }
 endif;

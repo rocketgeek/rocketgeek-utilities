@@ -7,7 +7,7 @@
  *
  * @package    RocketGeek_Utilities
  * @subpackage RocketGeek_Utilities_Utilities
- * @version    1.0.0
+ * @version    1.0.2
  *
  * @link       https://github.com/rocketgeek/rocketgeek-utilities/
  * @author     Chad Butler <https://butlerblog.com>
@@ -181,5 +181,86 @@ function rktgk_get_user_ip() {
 	 * @param string $ip
 	 */
 	return apply_filters( 'rktgk_get_user_ip', $ip );
+}
+endif;
+
+if ( ! function_exists( '' ) ) :
+/**
+ *  A getter for $_SERVER vars
+ * 
+ * @since 1.0.2
+ * 
+ * @param  string  $server_var
+ * @return string
+ */
+function rktgk_get_server_var( $server_var ) {
+	return ( isset( $_SERVER[ $server_var ] ) ) ? $_SERVER[ $server_var ] : '';
+}
+endif;
+
+if ( ! function_exists( 'rktgk_get_script_uri' ) ) :
+function rktgk_get_script_uri( $var = false ) {
+	$url = rktgk_get_server_var( 'SCRIPT_URI' );
+	if ( '' != $url ) {
+		return $url;
+	} else {
+		$url = rktgk_get_server_var( 'REQUEST_URI' );
+		if ( '' != $url ) {
+			return $url;
+		} else {
+			return rktgk_get_server_var( 'SCRIPT_NAME' );
+		}
+	}
+}
+endif;
+
+if ( ! function_exists( 'rktgk_build_html_tag' ) ) :
+/**
+ * Builds an HTML tag from provided attributes.
+ * 
+ * @since 1.0.2
+ * 
+ * @param  array  $args {
+ *     An array of attributes to build the html tag.
+ * 
+ *     @type string  $tag              HTML tag to build.
+ *     @type array   $attributes|$atts Array of attributes of the tag, keyed as the attribute name.
+ *     @type string  $content          Content inside the wrapped tag (omit for self-closing tags).
+ * }
+ */
+function rktgk_build_html_tag( $args ) {
+	
+	// A list of self-closing tags (so $content is not used).
+	$self_closing_tags = array( 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr' );
+
+	// Check for attributes and allow for shorthand "atts"
+	if ( isset( $args['attributes'] ) ) {
+		$attributes = $args['attributes'];
+	} elseif ( isset( $args['atts'] ) ) {
+		$attributes = $args['atts'];
+	} else {
+		$attributes = false;
+	}
+
+	// Assemble tag and attributes.
+	$tag = '<' . $args['tag'];
+	if ( false != $attributes ) {
+		foreach ( $attributes as $attribute => $value ) {
+			// Sanitize classes.
+			$value = ( 'class' == $attribute || 'id' == $attribute ) ? rktgk_sanitize_class( $value ) : $value;
+			
+			$tag .= ' ' . $attribute . '="' . esc_attr( $value ) . '"';
+		}
+	}
+
+	// If tag is self closing.
+	if ( in_array( $args['tag'], $self_closing_tags ) ) {
+		$tag .= ' />';
+	} else {
+		// If tag is a wrapped tag.
+		$tag .= '>' . $args['content'] . '</' . $args['tag'] . '>';
+	}
+
+	return $tag;
 }
 endif;

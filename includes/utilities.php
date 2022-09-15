@@ -184,7 +184,7 @@ function rktgk_get_user_ip() {
 }
 endif;
 
-if ( ! function_exists( '' ) ) :
+if ( ! function_exists( 'rktgk_get_server_var' ) ) :
 /**
  *  A getter for $_SERVER vars
  * 

@@ -32,11 +32,12 @@
  * limitations under the License.
  */
 
-require_once( 'includes/utilities.php' );
-require_once( 'includes/arrays.php' );
-require_once( 'includes/dates.php' );
-require_once( 'includes/forms.php' );
-require_once( 'includes/strings.php' );
+require_once 'includes/utilities.php';
+require_once 'includes/arrays.php';
+require_once 'includes/dates.php';
+require_once 'includes/forms.php';
+require_once 'includes/strings.php';
+require_once 'includes/db.php';
 
 // @todo Change to load only if debug is set
 require_once( 'includes/debug.php' );

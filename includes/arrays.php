@@ -86,3 +86,33 @@ function rktgk_array_insert( array $array, array $new, $key, $loc = 'after' ) {
 	return array_merge( array_slice( $array, 0, $pos ), $new, array_slice( $array, $pos ) );
 }
 endif;
+
+if ( ! function_exists( 'rktgk_wp_parse_args' ) ) : 
+/**
+ * Allows for both string or array to be merged into another array.
+ * 
+ * Similar to wp_parse_args(). However, wp_parse_args() does not work
+ * recursively and cannot be used on multi-dimensional arrays. This
+ * function will operate in the same manner, but works recursively.
+ * 
+ * From https://mekshq.com/recursive-wp-parse-args-wordpress-function/
+ *
+ * @since 1.0.4
+ * 
+ * @param  $a  string|array|object  Value to merge with $defaults.
+ * @param  $b  array                Serves as $default values.
+ */
+function rktgk_wp_parse_args( &$a, $b ) {
+	$a = (array) $a;
+	$b = (array) $b;
+	$result = $b;
+	foreach ( $a as $k => &$v ) {
+		if ( is_array( $v ) && isset( $result[ $k ] ) ) {
+			$result[ $k ] = rktgk_wp_parse_args( $v, $result[ $k ] );
+		} else {
+			$result[ $k ] = $v;
+		}
+	}
+	return $result;
+}
+endif;

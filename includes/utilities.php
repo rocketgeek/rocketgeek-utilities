@@ -227,8 +227,9 @@ if ( ! function_exists( 'rktgk_build_html_tag' ) ) :
  *     @type array   $attributes|$atts Array of attributes of the tag, keyed as the attribute name.
  *     @type string  $content          Content inside the wrapped tag (omit for self-closing tags).
  * }
+ * @param boolean $echo
  */
-function rktgk_build_html_tag( $args ) {
+function rktgk_build_html_tag( $args, $echo = false ) {
 	
 	// A list of self-closing tags (so $content is not used).
 	$self_closing_tags = array( 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr' );
@@ -243,13 +244,17 @@ function rktgk_build_html_tag( $args ) {
 	}
 
 	// Assemble tag and attributes.
-	$tag = '<' . $args['tag'];
+	$tag = '<' . esc_attr( $args['tag'] );
 	if ( false != $attributes ) {
 		foreach ( $attributes as $attribute => $value ) {
 			// Sanitize classes.
 			$value = ( 'class' == $attribute || 'id' == $attribute ) ? rktgk_sanitize_class( $value ) : $value;
+
+			// Escape urls and remaining attributes.
+			$esc_value = ( 'href' == $attribute ) ? esc_url( $value ) : esc_attr( $value );
 			
-			$tag .= ' ' . $attribute . '="' . esc_attr( $value ) . '"';
+			// Continue tag assembly.
+			$tag .= ' ' . esc_attr( $attribute ) . '="' . $esc_value . '"';
 		}
 	}
 
@@ -258,9 +263,13 @@ function rktgk_build_html_tag( $args ) {
 		$tag .= ' />';
 	} else {
 		// If tag is a wrapped tag.
-		$tag .= '>' . $args['content'] . '</' . $args['tag'] . '>';
+		$tag .= '>' . esc_html( $args['content'] ) . '</' . esc_attr( $args['tag'] ) . '>';
 	}
 
-	return $tag;
+	if ( $echo ) {
+		echo $tag;
+	} else {
+		return $tag;
+	}
 }
 endif;

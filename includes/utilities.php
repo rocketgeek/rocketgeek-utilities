@@ -7,15 +7,15 @@
  *
  * @package    RocketGeek_Utilities
  * @subpackage RocketGeek_Utilities_Utilities
- * @version    1.0.2
+ * @version    1.0.3
  *
  * @link       https://github.com/rocketgeek/rocketgeek-utilities/
  * @author     Chad Butler <https://butlerblog.com>
  * @author     RocketGeek <https://rocketgeek.com>
- * @copyright  Copyright (c) 2022 Chad Butler
+ * @copyright  Copyright (c) 2023 Chad Butler
  * @license    Apache-2.0
  *
- * Copyright [2022] Chad Butler, RocketGeek
+ * Copyright [2023] Chad Butler, RocketGeek
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -142,6 +142,8 @@ endif;
 if ( ! function_exists( 'rktgk_is_woo_active' ) ):
 /**
  * Checks if WooCommerce is active.
+ * 
+ * @link https://woocommerce.com/document/query-whether-woocommerce-is-activated/
  *
  * @since 1.0.0
  *
@@ -271,5 +273,43 @@ function rktgk_build_html_tag( $args, $echo = false ) {
 	} else {
 		return $tag;
 	}
+}
+endif;
+
+if ( ! function_exists( 'rktgk_wc_checkout_fields' ) ):
+function rktgk_wc_checkout_fields() {
+	return array(
+		// Billing checkout fields.
+		'billing_first_name',
+		'billing_last_name',
+		'billing_company',
+		'billing_address_1',
+		'billing_address_2',
+		'billing_city',
+		'billing_postcode',
+		'billing_country',
+		'billing_state',
+		'billing_email',
+		'billing_phone',
+
+		// Shipping checkout fields.
+		'shipping_first_name',
+		'shipping_last_name',
+		'shipping_company',
+		'shipping_address_1',
+		'shipping_address_2',
+		'shipping_city',
+		'shipping_postcode',
+		'shipping_country',
+		'shipping_state',
+
+		// Account checkout fields.
+		'account_username',
+		'account_passoword',
+		'account_password-2',
+
+		// Order checkout fields.
+		'order_comments',
+	);
 }
 endif;

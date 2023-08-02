@@ -9,7 +9,7 @@
  * useful for your project(s). Attribution is appreciated ;-)
  *
  * @package    RocketGeek_Utilities
- * @version    1.0.3
+ * @version    1.0.4
  *
  * @link       https://github.com/rocketgeek/rocketgeek-utilities/
  * @author     Chad Butler <https://butlerblog.com>
@@ -38,6 +38,9 @@ require_once 'includes/dates.php';
 require_once 'includes/forms.php';
 require_once 'includes/strings.php';
 require_once 'includes/db.php';
+if ( rktgk_is_woo_active() ) {
+    require_once 'includes/woocommerce.php';
+}
 
 // @todo Change to load only if debug is set
 require_once( 'includes/debug.php' );

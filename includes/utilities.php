@@ -143,9 +143,6 @@ if ( ! function_exists( 'rktgk_is_woo_active' ) ):
 /**
  * Checks if WooCommerce is active.
  * 
- * @note: Keep this in utilities.php; it is used in the loader to check if the
- *        woocommerce api functions should load or not.
- * 
  * @link https://woocommerce.com/document/query-whether-woocommerce-is-activated/
  *
  * @since 1.0.0
@@ -314,24 +311,5 @@ function rktgk_wc_checkout_fields() {
 		// Order checkout fields.
 		'order_comments',
 	);
-}
-endif;
-
-if ( ! function_exists( 'rktgk_plugin_pathinfo' ) ) :
-function rktgk_plugin_pathinfo( $magic_file ) {
-	$path_parts      = pathinfo( $magic_file );
-	$plugin_dir_path = plugin_dir_path( $magic_file );
-	$basename        = basename( $plugin_dir_path );
-
-	$path_info = array( 
-		'magic_file'    => $magic_file,
-		'path'          => $plugin_dir_path,
-		'url'           => plugin_dir_url ( $magic_file ),
-		'wp_name'       => trailingslashit( $basename ) . $path_parts['basename'],
-		'basename'      => $basename,
-		'slug'          => $path_parts['filename'],
-	);
-
-	return apply_filters( 'rktgk_plugin_pathinfo', $path_info, $magic_file );
 }
 endif;

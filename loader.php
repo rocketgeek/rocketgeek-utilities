@@ -9,15 +9,15 @@
  * useful for your project(s). Attribution is appreciated ;-)
  *
  * @package    RocketGeek_Utilities
- * @version    1.0.4
+ * @version    1.0.5
  *
  * @link       https://github.com/rocketgeek/rocketgeek-utilities/
  * @author     Chad Butler <https://butlerblog.com>
  * @author     RocketGeek <https://rocketgeek.com>
- * @copyright  Copyright (c) 2023 Chad Butler
+ * @copyright  Copyright (c) 2024 Chad Butler
  * @license    Apache-2.0
  *
- * Copyright [2023] Chad Butler, RocketGeek
+ * Copyright [2024] Chad Butler, RocketGeek
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

@@ -12,10 +12,10 @@
  * @link       https://github.com/rocketgeek/rocketgeek-utilities/
  * @author     Chad Butler <https://butlerblog.com>
  * @author     RocketGeek <https://rocketgeek.com>
- * @copyright  Copyright (c) 2023 Chad Butler
+ * @copyright  Copyright (c) 2024 Chad Butler
  * @license    Apache-2.0
  *
- * Copyright [2023] Chad Butler, RocketGeek
+ * Copyright [2024] Chad Butler, RocketGeek
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,5 +174,55 @@ function rktgk_sanitize_field( $data, $type = '' ) {
 	}
 
 	return $sanitized_data;
+}
+endif;
+
+if ( ! function_exists( 'rktgk_sanitized_get' ) ):
+/**
+ * Gets a $_GET, $_POST, or $_REQUEST field or query var, sanitized.
+ * 
+ * @since 1.0.5
+ * 
+ * @param  string  $field    Field to get.
+ * @param  string  $type     Field type (default:text).
+ * @param  string  $default  Default value to return if no result (default:false).
+ * @param  string  $method   Method (get|post|request) default:get.
+ * @return mixed   $result
+ */
+function rktgk_sanitized_get( $field, $type = 'text', $default = false, $method = 'get' ) {
+	$result = rktgk_get( $field, $default, $method );
+	return rktgk_sanitize_field( $field, $type );
+}
+endif;
+
+if ( ! function_exists( 'rktgk_sanitized_post' ) ):
+/**
+ * Gets a $_POST field, sanitized.
+ * 
+ * @since 1.0.5
+ * 
+ * @param  string  $field    Field to get.
+ * @param  string  $type     Field type (default:text).
+ * @param  string  $default  Default value to return if no result (default:false).
+ * @return mixed   $result
+ */
+function rktgk_sanitized_post( $field, $type = 'text', $default = false ) {
+	return rktgk_sanitized_get( $field, $type, $default, 'post' );
+}
+endif;
+
+if ( ! function_exists( 'rktgk_sanitized_request' ) ):
+/**
+ * Gets a $_REQUEST field or query var, sanitized.
+ * 
+ * @since 1.0.5
+ * 
+ * @param  string  $field    Field to get.
+ * @param  string  $type     Field type (default:text).
+ * @param  string  $default  Default value to return if no result (default:false).
+ * @return mixed   $result
+ */
+function rktgk_sanitized_request( $field, $type = 'text', $default = false ) {
+	return rktgk_sanitized_get( $field, $type, $default, 'request' );
 }
 endif;
